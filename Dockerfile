@@ -11,7 +11,8 @@ RUN addgroup -S frp \
  && apk add --no-cache curl \
  && echo "Fetching version ${FRP_VERSION}" \
  && PLATARCH=$(arch) \
- && curl -fSL https://github.com/fatedier/frp/releases/download/${FRP_VERSION}/frp_${FRP_VERSION:1}_linux_${ARCH}.tar.gz -o frp.tar.gz \
+ && echo "Platform: ${PLATARCH}" \
+ && curl -fSL https://github.com/fatedier/frp/releases/download/${FRP_VERSION}/frp_${FRP_VERSION:1}_linux_${PLATARCH}.tar.gz -o frp.tar.gz \
  && tar -zxv -f frp.tar.gz \
  && rm -rf frp.tar.gz \
  && mv frp_*_linux_amd64 /frp \
