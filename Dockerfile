@@ -2,8 +2,6 @@ FROM alpine
 
 #LABEL MAINTAINER "Esteban Mayoral <contact@mpesteban.dev>"
 
-ENV FRP_VERSION=v0.44.0
-
 ADD entrypoint.sh /entrypoint.sh
 
 RUN echo "Fetching version ${FRP_VERSION}"
