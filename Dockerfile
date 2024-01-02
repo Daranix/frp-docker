@@ -4,7 +4,7 @@ FROM alpine
 
 ARG FRP_VERSION=0.44.0
 
-ADD entrypoint.sh /entrypoint.sh
+COPY --chown=frp:frp entrypoint.sh /frp/entrypoint.sh
 
 RUN echo "Fetching version ${FRP_VERSION}"
 RUN PLATARCH=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) && echo "Platform: ${PLATARCH}"
@@ -18,8 +18,7 @@ RUN addgroup -S frp \
  && tar -zxv -f frp.tar.gz \
  && rm -rf frp.tar.gz \
  && mv frp_*_linux_* /frp \
- && chown -R frp:frp /frp \
- && mv /entrypoint.sh /frp/
+ && chown -R frp:frp /frp 
 
 USER frp
 
