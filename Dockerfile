@@ -21,6 +21,7 @@ RUN addgroup -S frp \
  && chown -R frp:frp /frp 
 
 USER frp
+RUN ["chmod", "+x", "/frp/entrypoint.sh"]
 
 WORKDIR /frp
 
