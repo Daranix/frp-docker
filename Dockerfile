@@ -6,6 +6,8 @@ ENV FRP_VERSION=v0.44.0
 
 ADD entrypoint.sh /entrypoint.sh
 
+RUN echo "Fetching version ${FRP_VERSION}"
+RUN PLATARCH=$(arch) && echo "Platform: ${PLATARCH}"
 RUN addgroup -S frp \
  && adduser -D -S -h /var/frp -s /sbin/nologin -G frp frp \
  && apk add --no-cache curl \
