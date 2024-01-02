@@ -79,7 +79,7 @@ jobs:
       - name: Extract image full name lowercase
         id: image_fullname
         run: |
-          full_name=$("${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
+          full_name=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           echo "Lowercase fullname: $full_name"
           echo "::set-output name=lowercase_name::$full_name"
 
