@@ -25,6 +25,4 @@ RUN ["chmod", "+x", "/frp/entrypoint.sh"]
 
 WORKDIR /frp
 
-EXPOSE 6000 7000
-
-CMD ["/frp/entrypoint.sh"]
+ENTRYPOINT ["/frp/entrypoint.sh"]
