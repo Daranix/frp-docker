@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  frp-agent:
+    image: ghcr.io/daranix/frp-docker:v0.53.2
+    container_name: frp-agent
+    platform: "linux/arm64"
+    #pull_policy: always
+    environment:
+      - MODE=client
+    ports:
+      - 7400:7400
+      - 6001:6001
+      #- 22:22
+    volumes:
+      - ./frpc.toml:/frp_config/frpc.toml
+    command: '-c /frp_config/frpc.toml'
+    #ports:
+      #- 25565:25565
+    restart: unless-stopped

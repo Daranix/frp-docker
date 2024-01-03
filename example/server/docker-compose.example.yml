@@ -1,0 +1,18 @@
+version: "3.5"
+services:
+  frp-server:
+    image: ghcr.io/daranix/frp-docker:v0.53.2
+    platform: "linux/arm64"
+    container_name: frp_server
+    #pull_policy: always
+    environment:
+      - MODE=server
+    ports:
+      - 7001:7001
+      - 7500:7500
+    volumes:
+      - ./frps.toml:/frp_config/frps.toml
+    command: '-c /frp_config/frps.toml'
+    #ports:
+      #- 25565:25565
+    restart: unless-stopped
