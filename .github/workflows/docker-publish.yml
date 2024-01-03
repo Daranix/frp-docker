@@ -6,8 +6,8 @@ name: Docker
 # documentation.
 
 on:
-  schedule:
-    - cron: '17 15 * * *'
+  #schedule:
+    #- cron: '17 15 * * *'
   push:
     branches: [ "main" ]
     # Publish semver tags as releases.
@@ -38,6 +38,7 @@ jobs:
         platform:
           - linux/amd64
           - linux/arm64
+          - linux/arm64/v8
 
     steps:
       - name: Checkout repository
@@ -101,7 +102,7 @@ jobs:
           context: .
           platforms: ${{ matrix.platform }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.image_fullname.outputs.lowercase_name }}:${{ steps.get_tag.outputs.tag }}
+          tags: ${{ steps.image_fullname.outputs.lowercase_name }}:${{ steps.get_tag.outputs.tag }},${{ steps.image_fullname.outputs.lowercase_name }}:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
