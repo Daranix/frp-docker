@@ -1,5 +1,6 @@
 #!/bin/sh
-if [ $MODE -eq "client" ]; then
+echo "Starting mode $MODE"
+if [ $MODE = "client" ]; then
     exec /frp/frpc "$@"
 else
     exec /frp/frps "$@"
