@@ -116,4 +116,11 @@ jobs:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
-        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+        run: |
+          # Remove any local sigstore / TUF cache that may contain stale keys
+          rm -rf ~/.cache/tuf || true
+          rm -rf ~/.cache/sigstore || true
+          rm -rf ~/.sigstore || true
+
+          # Sign each tag using the published digest
+          echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
