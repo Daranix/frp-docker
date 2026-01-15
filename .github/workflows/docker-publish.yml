@@ -43,15 +43,6 @@ jobs:
           latest_tag=$(curl -sSL "https://api.github.com/repos/fatedier/frp/releases/latest" | jq -r .tag_name)
           echo "Latest tag: $latest_tag"
           echo "::set-output name=tag::$latest_tag"
-
-      # Install the cosign tool except on PR
-      # https://github.com/sigstore/cosign-installer
-      - name: Install cosign
-        if: github.event_name != 'pull_request'
-        # Use the action's stable v1 tag and request a newer cosign release
-        uses: sigstore/cosign-installer@v1
-        with:
-          cosign-release: 'v2.3.0'
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -103,7 +94,3 @@ jobs:
           build-args: 'FRP_VERSION=${{ steps.get_tag.outputs.tag }}'
         env:
           FRP_VERSION: ${{ steps.get_tag.outputs.tag }}
-
-      # Signing step removed by request. If you want to re-enable image signing,
-      # add a step here to run `cosign sign` and ensure `sigstore/cosign-installer`
-      # is configured above with the desired `cosign-release`.
